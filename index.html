@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Valentine?</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Arial; display:flex; min-height:100vh; align-items:center; justify-content:center; background: #ffe6ef; }
+    .card { background:white; padding:28px; border-radius:18px; box-shadow:0 10px 30px rgba(0,0,0,.12); text-align:center; max-width:420px; width:92%; }
+    h1 { margin:0 0 18px; font-size:28px; }
+    .btns { display:flex; gap:12px; justify-content:center; margin-top:16px; }
+    button { font-size:18px; border:0; padding:12px 18px; border-radius:12px; cursor:pointer; }
+    .yes { background:#ff4d88; color:white; }
+    .no { background:#f1f1f1; }
+    .small { margin-top:14px; opacity:.8; font-size:14px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Will you be my valentine?</h1>
+
+    <div class="btns">
+      <button class="yes" onclick="window.location.href='/yes'">Yes 💖</button>
+      <button class="no" id="noBtn">No</button>
+    </div>
+
+    <div class="small" id="msg"></div>
+  </div>
+
+  <script>
+    // playful "No" behavior: move away when hovered/tapped
+    const noBtn = document.getElementById("noBtn");
+    const msg = document.getElementById("msg");
+    let dodges = 0;
+
+    function dodge() {
+      dodges++;
+      msg.textContent = "hmm…try again 😏";
+
+      const card = document.querySelector(".card");
+      const rect = card.getBoundingClientRect();
+
+      // random position inside the card area
+      const x = Math.random() * (rect.width - 90);
+      const y = Math.random() * (rect.height - 50);
+
+      noBtn.style.position = "absolute";
+      noBtn.style.left = (rect.left + x) + "px";
+      noBtn.style.top  = (rect.top + y) + "px";
+    }
+
+    noBtn.addEventListener("mouseenter", dodge);
+    noBtn.addEventListener("click", dodge);
+  </script>
+</body>
+</html>
